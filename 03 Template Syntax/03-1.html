@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tpl</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span>
+            Message: {{ msg }}
+        </span> 
+        <span v-once>{{ msg }}</span>
+        
+        <hr>
+
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+        <hr>
+        <div v-bind:id="dynamicId">v-bind</div>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+
+        <hr>
+
+        {{ number + 1 }}
+        
+        {{ ok ? 'YES' : 'NO' }}
+        
+        {{ msg.split('').reverse().join('') }}
+        
+        <div v-bind:id="'list-' + id">string concat</div>
+
+        <hr>
+        <button v-on:click='doSomething'>v-on</button>
+        <button @click='doSomething'>v-on ->@</button>
+
+        <a v-bind:href="url">http://www.mzh.ren/ v-bind href</a>
+        <a :href="url">http://www.mzh.ren/ :href</a>
+    </div>
+   
+
+
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            msg:'Hello Vue',
+            rawHtml:' <span style="color: red">This should be red.</span>',
+            dynamicId:'v-bind',
+            isButtonDisabled:false,
+            number: 10,
+            ok:true,
+            id: 'vue',
+            url:'http://www.mzh.ren',
+            doSomething:function(){
+                alert('do some thing!');
+            }
+        }
+    })
+</script>
+</body>
+</html>
