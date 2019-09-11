@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件修饰符</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-on:click.self="parentAction">
+        <a v-on:click="childAction">stopPropagation()</a>
+    </p>
+
+    <a v-on:click.stop.prevent.once="once">once</a>
+    
+    <!-- 提交事件不再重载页面 -->
+    <form v-on:submit.prevent="onSubmit"></form>
+    
+    <!-- 修饰符可以串联 -->
+    <a v-on:click.stop.prevent="doThat">stop and prevent</a>
+    
+    <!-- 只有修饰符 -->
+    <form v-on:submit.prevent></form>
+    
+    <!-- 添加事件监听器时使用事件捕获模式 -->
+    <!-- 即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 -->
+    <div v-on:click.capture="doThis">...</div>
+    
+    <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+    <!-- 即事件不是从内部元素触发的 -->
+    <div v-on:click.self="doThat">...</div>
+</div>
+<script>
+var app = new Vue({
+    el:'#app',
+    methods:{
+        parentAction:function(e){
+            alert(e.target.tagName)
+
+        },
+        childAction:function(e){
+            alert('stopPropagation');
+            alert(e.target.tagName)
+        },
+        once:function(){
+            alert('once')
+        }
+    }
+})
+</script>
+</body>
+</html>
