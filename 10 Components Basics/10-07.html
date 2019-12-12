@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>使用事件抛出一个值</title>
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="components-demo">
+    <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post v-on:enlarge-text="onEnlargeText" v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
+    </div>
+</div>
+
+<script>
+    Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                <h3>{{ post.title }}</h3>
+                <button v-on:click="$emit('enlarge-text', 0.1)">
+                    Enlarge text
+                </button>
+                <div v-html="post.content"></div>
+                <div v-html="post.pop"></div>
+                </div>
+            `
+        });
+    var app = new Vue({
+        el: '#components-demo',
+        data:{
+            posts:[{
+                title:"java",
+                content:"a cool language",
+                pop :6
+            }, {
+                title: "ruby",
+                content: "a cool language",
+                pop:8
+            }, {
+                title: "python",
+                content: "a cool language",
+                pop:1
+            }],
+            postFontSize: 1
+        },
+        methods:{
+            onEnlargeText: function (enlargeAmount) {
+                this.postFontSize += enlargeAmount
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>

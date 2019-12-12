@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>通过插槽分发内容</title>
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="components-demo">
+    <alert-box>
+        Something bad happened.
+    </alert-box>
+</div>
+
+<script>
+   Vue.component('alert-box', {
+        template: `<div class="demo-alert-box">
+            <strong> Error!  </strong>
+            <slot></slot>
+            </div>`
+    });
+
+
+    var app = new Vue({
+        el: '#components-demo',
+        data:{
+            searchText:"java"
+        }
+    })
+
+
+</script>
+</body>
+</html>
